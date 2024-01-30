@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const jwt = require("jsonwebtoken");
-const { MongoClient, ServerApiVersion } = require("mongodb");
+const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 const app = express();
@@ -79,6 +79,14 @@ async function run() {
       } catch (err) {
         console.log(err);
       }
+    });
+
+    //Getting a Single Contest Details//
+    app.get("/contests/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await contestCollection.findOne(query);
+      res.send(result);
     });
 
     //Posting JWT Token//

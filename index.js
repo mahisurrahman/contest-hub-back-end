@@ -38,6 +38,7 @@ async function run() {
     //collections//
     const userCollection = client.db("contestDb").collection("users");
     const contestCollection = client.db("contestDb").collection("contests");
+    const cartCollection = client.db("contestDb").collection("carts");
 
     //Getting Users//
     app.get("/users", async (req, res) => {
@@ -119,6 +120,8 @@ async function run() {
         console.log(err);
       }
     });
+
+    //
 
     //Putting Users to DB//
     // app.put('/users/:email', async(req, res)=>{

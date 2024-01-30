@@ -121,7 +121,26 @@ async function run() {
       }
     });
 
-    //
+    //Posting Carts//
+    app.post('/carts', async(req, res)=>{
+      const cartItem = req.body;
+      const result = await cartCollection.insertOne(cartItem);
+      res.send(result);
+    })
+
+    // //Get All Cart Items//
+    // app.get('/carts', async(req, res)=>{
+    //   const result = await cartCollection.find().toArray();
+    //   res.send(result);
+    // })
+
+    //Getting Single Cart Data//
+    app.get('/carts', async(req, res)=>{
+      const email = req.query.email;
+      const query = {email: email};
+      const result = await cartCollection.findOne(query).toArray();
+      res.send(result);
+    })
 
     //Putting Users to DB//
     // app.put('/users/:email', async(req, res)=>{

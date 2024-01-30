@@ -60,7 +60,6 @@ async function run() {
       }
     });
 
-
     //Posting Contests//
     app.post("/contests", async (req, res) => {
       try {
@@ -82,22 +81,36 @@ async function run() {
       }
     });
 
-
     //Posting JWT Token//
-    app.post('/jwt', async(req, res)=>{
+    app.post("/jwt", async (req, res) => {
       const user = req.body;
       const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: '365d',
-      })
-      res.
-      cookie('token', token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV ==='production',
-        sameSite: process.env.NODE_ENV ==='production', 'none': 'strict',
-      })
-      .send({success: true})
-    })
+        expiresIn: "365d",
+      });
+      res
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? 'none': "strict",
+        })
+        .send({ success: true });
+    });
 
+    //Releifing the JWT Token on LogOut//
+    app.get("/logout", async (req, res) => {
+      try {
+        res
+        .clearCookie("token", {
+          maxAge: 0,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: process.env.NODE_ENV === "production" ? 'none': "strict",
+        })
+        .send({success: true})
+        console.log('Logout Successfull');
+      } catch (err) {
+        console.log(err);
+      }
+    });
 
     //Putting Users to DB//
     // app.put('/users/:email', async(req, res)=>{

@@ -128,11 +128,11 @@ async function run() {
       res.send(result);
     })
 
-    // //Get All Cart Items//
-    // app.get('/carts', async(req, res)=>{
-    //   const result = await cartCollection.find().toArray();
-    //   res.send(result);
-    // })
+    //Get All Cart Items//
+    app.get('/carts', async(req, res)=>{
+      const result = await cartCollection.find().toArray();
+      res.send(result);
+    })
 
     //Getting Single Cart Data//
     app.get('/carts', async(req, res)=>{

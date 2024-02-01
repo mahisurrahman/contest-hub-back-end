@@ -50,7 +50,7 @@ async function run() {
       }
     });
 
-    // // Posting Users//
+    //Posting Users//
     app.post("/users", async (req, res) => {
       try {
         const user = req.body;
@@ -60,6 +60,14 @@ async function run() {
         console.log(err);
       }
     });
+
+    //Deleting Users//
+    app.delete('/users/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await userCollection.deleteOne(query);
+      res.send(result);
+    })
 
     //Posting Contests//
     app.post("/contests", async (req, res) => {

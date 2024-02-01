@@ -90,6 +90,14 @@ async function run() {
       res.send(result);
     });
 
+    //Deleting Contests By Admin//
+    app.delete('/contests/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await contestCollection.deleteOne(query);
+      res.send(result);
+    })
+
     //Posting JWT Token//
     app.post("/jwt", async (req, res) => {
       const user = req.body;
@@ -139,6 +147,14 @@ async function run() {
       const email = req.query.email;
       const query = {email: email};
       const result = await cartCollection.findOne(query);
+      res.send(result);
+    })
+
+    //Deleting Cart Items By User//
+    app.delete('/carts/:id', async(req, res)=>{
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id)};
+      const result = await cartCollection.deleteOne(query);
       res.send(result);
     })
 
